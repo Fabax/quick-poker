@@ -1,0 +1,21 @@
+.hand {
+  width: 50rem;
+  height: 15rem;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  &.oponent {
+    transform: rotate(180deg) translateX(50%);
+    top: 0;
+  }
+
+  &__button {
+    position: absolute;
+    top: -8rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
