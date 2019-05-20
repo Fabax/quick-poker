@@ -2,12 +2,6 @@ import './Card.scss';
 import React, { Component } from 'react';
 
 export default class Card extends Component {
-  generateClasses = () => {
-    let classArray = ['card'];
-    if (this.props.selected) classArray.push('card--selected');
-    return classArray.join(' ');
-  };
-
   getImageSource = () => {
     let face =
       process.env.PUBLIC_URL + '/images/' + this.props.cardInfos.imagePath;
@@ -16,10 +10,10 @@ export default class Card extends Component {
   };
 
   render() {
-    const { cardInfos } = this.props;
+    const { cardInfos, selected } = this.props;
     return (
       <div
-        className={this.generateClasses()}
+        className={selected ? 'card card--selected' : 'card '}
         onClick={() => {
           this.props.clickHandler(cardInfos);
         }}
