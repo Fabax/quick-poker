@@ -12,7 +12,7 @@ class App extends Component {
   };
 
   compareHands = () => {
-    const { hands, resetHands } = this.props;
+    const { hands } = this.props;
     //prepare data for the pokersolver library
     let hand1 = hands[0].map(value => {
       return value.code;
@@ -47,20 +47,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <button
-          onClick={() => {
-            this.compareHands();
-          }}
-        >
-          compare
-        </button>
-        <button
-          onClick={() => {
-            this.resetHands();
-          }}
-        >
-          reset hands
-        </button>
+        <button onClick={this.compareHands}>compare</button>
+        <button onClick={this.resetHands}>reset hands</button>
         <Hand playerId={0} />
         <Hand playerId={1} oponent turned={this.state.isOponentHandHidden} />
       </div>

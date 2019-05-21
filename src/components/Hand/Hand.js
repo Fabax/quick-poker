@@ -122,12 +122,7 @@ class Hand extends Component {
     return (
       <div className={oponent ? 'hand oponent' : 'hand'}>
         {!oponent && (
-          <button
-            className="hand__button"
-            onClick={() => {
-              this.updateHand();
-            }}
-          >
+          <button className="hand__button" onClick={this.updateHand}>
             change cards
           </button>
         )}
