@@ -3,17 +3,23 @@ import './App.scss';
 import Hand from './components/Hand/Hand';
 import { connect } from 'react-redux';
 import { Component } from 'react';
+import { resetHands } from './actions';
 import { Hand as poskerSolver } from 'pokersolver';
 
 class App extends Component {
+  state = {
+    isOponentHandHidden: true,
+  };
+
   compareHands = () => {
+    const { hands, resetHands } = this.props;
     //prepare data for the pokersolver library
-    let hand1 = this.props.hands[0].map(value => {
+    let hand1 = hands[0].map(value => {
       return value.code;
     });
     let handSolver1 = poskerSolver.solve(hand1);
 
-    let hand2 = this.props.hands[1].map(value => {
+    let hand2 = hands[1].map(value => {
       return value.code;
     });
     let handSolver2 = poskerSolver.solve(hand2);
@@ -28,7 +34,14 @@ class App extends Component {
     let result = winningHand.every(e => hand1.includes(e))
       ? 'You win'
       : 'You Loose';
+
+    this.setState({ isOponentHandHidden: false });
     alert(result);
+  };
+
+  resetHands = () => {
+    this.props.resetHands();
+    this.setState({ isOponentHandHidden: true });
   };
 
   render() {
@@ -41,8 +54,15 @@ class App extends Component {
         >
           compare
         </button>
+        <button
+          onClick={() => {
+            this.resetHands();
+          }}
+        >
+          reset hands
+        </button>
         <Hand playerId={0} />
-        <Hand playerId={1} oponent />
+        <Hand playerId={1} oponent turned={this.state.isOponentHandHidden} />
       </div>
     );
   }
@@ -57,5 +77,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  {},
+  { resetHands },
 )(App);

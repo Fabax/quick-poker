@@ -14,6 +14,8 @@ const handReducer = (hands = [[], []], action) => {
     } else {
       return hands;
     }
+  } else if (action.type === 'RESET_HANDS') {
+    return [[], []];
   } else {
     return hands;
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Card from '../Card/Card';
 import { connect } from 'react-redux';
-import { setHand, updateHand } from '../../actions';
+import { setHand } from '../../actions';
 import './Hand.scss';
 
 class Hand extends Component {
@@ -14,6 +14,17 @@ class Hand extends Component {
   }
 
   componentDidMount = () => {
+    this.resetHands();
+  };
+
+  componentDidUpdate = () => {
+    //if hands are empty regenerate them
+    if (this.props.hands[0].length <= 0 && this.props.hands[1].length <= 0) {
+      this.resetHands();
+    }
+  };
+
+  resetHands = () => {
     let newHand = this.generateHand();
     this.props.setHand({ playerId: this.props.playerId, hand: newHand });
   };
@@ -92,13 +103,13 @@ class Hand extends Component {
   };
 
   cardList = () => {
-    const { hands, playerId } = this.props;
+    const { hands, playerId, turned } = this.props;
     return hands[playerId].map((item, key) => {
       return (
         <Card
           cardInfos={item}
           key={key}
-          turned={this.props.oponent}
+          turned={turned}
           clickHandler={this.toggleSelect}
           selected={this.state.selectedCards.includes(item) === true}
         />
@@ -135,5 +146,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { setHand, updateHand },
+  { setHand },
 )(Hand);

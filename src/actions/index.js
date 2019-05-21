@@ -6,10 +6,10 @@ export const setHand = hand => {
   };
 };
 
-export const updateHand = hand => {
+export const resetHands = hand => {
   //returns an action
   return {
-    type: 'UPDATE_HAND',
+    type: 'RESET_HANDS',
     payload: hand,
   };
 };
