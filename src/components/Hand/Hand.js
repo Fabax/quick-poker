@@ -59,6 +59,7 @@ class Hand extends Component {
     this.props.setHand({ playerId: this.props.playerId, hand: newHand });
   };
 
+  //Get cards you can still draw
   getRemainingCard = () => {
     return this.props.deck.filter(e => {
       let inHand = false;
@@ -76,15 +77,15 @@ class Hand extends Component {
       !this.state.selectedCards.includes(card) ||
       this.state.selectedCards === []
     ) {
-      this.setState((prevState = []) => ({
-        selectedCards: [...prevState.selectedCards, card],
-      }));
+      this.setState({
+        selectedCards: [...this.state.selectedCards, card],
+      });
     } else {
-      this.setState(prevState => ({
-        selectedCards: prevState.selectedCards.filter(
+      this.setState({
+        selectedCards: this.state.selectedCards.filter(
           cardId => cardId !== card,
         ),
-      }));
+      });
     }
   };
 
