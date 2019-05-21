@@ -9,11 +9,19 @@ export default class Card extends Component {
     return this.props.turned ? back : face;
   };
 
+  classNames = () => {
+    const { turned, selected } = this.props;
+    let classNames = ['card'];
+    if (turned) classNames.push('card--turned');
+    if (selected) classNames.push('card--selected');
+    return classNames.join(' ');
+  };
+
   render() {
-    const { cardInfos, selected } = this.props;
+    const { cardInfos } = this.props;
     return (
       <div
-        className={selected ? 'card card--selected' : 'card '}
+        className={this.classNames()}
         onClick={() => {
           this.props.clickHandler(cardInfos);
         }}

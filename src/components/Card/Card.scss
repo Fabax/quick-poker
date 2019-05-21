@@ -14,4 +14,11 @@
       transform: translateY(1rem) scale(1);
     }
   }
+
+  &--turned {
+    transform: translateY(0rem);
+    &:hover {
+      transform: translateY(0rem) scale(1);
+    }
+  }
 }

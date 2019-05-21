@@ -98,7 +98,7 @@ class Hand extends Component {
         <Card
           cardInfos={item}
           key={key}
-          // turned={this.props.oponent}
+          turned={this.props.oponent}
           clickHandler={this.toggleSelect}
           selected={this.state.selectedCards.includes(item) === true}
         />
@@ -110,14 +110,16 @@ class Hand extends Component {
     const { oponent } = this.props;
     return (
       <div className={oponent ? 'hand oponent' : 'hand'}>
-        <button
-          className="hand__button"
-          onClick={() => {
-            this.updateHand();
-          }}
-        >
-          change cards
-        </button>
+        {!oponent && (
+          <button
+            className="hand__button"
+            onClick={() => {
+              this.updateHand();
+            }}
+          >
+            change cards
+          </button>
+        )}
         {this.cardList()}
       </div>
     );
