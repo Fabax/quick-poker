@@ -3,22 +3,27 @@ import './App.scss';
 import Hand from './components/Hand/Hand';
 import { connect } from 'react-redux';
 import { Component } from 'react';
-// import { Hand as poskerSolver } from 'pokersolver';
+import { Hand as poskerSolver } from 'pokersolver';
 
 class App extends Component {
   compareHands = () => {
     //IN PROGRESS
-    // let hand1 = poskerSolver.solve(
-    //   this.props.hands[0].map(value => {
-    //     return value.code;
-    //   }),
-    // );
-    // let hand2 = poskerSolver.solve(
-    //   this.props.hands[1].map(value => {
-    //     return value.code;
-    //   }),
-    // );
-    // let winner = poskerSolver.winners(hand1, hand2);
+    let hand1 = poskerSolver.solve(
+      this.props.hands[0].map(value => {
+        return value.code;
+      }),
+    );
+    let hand2 = poskerSolver.solve(
+      this.props.hands[1].map(value => {
+        return value.code;
+      }),
+    );
+    let winner = poskerSolver.winners([hand1, hand2]);
+    console.log(
+      winner[0].cardPool.map(card => {
+        return card.value + card.suit;
+      }),
+    );
   };
 
   render() {
