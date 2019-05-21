@@ -7,23 +7,28 @@ import { Hand as poskerSolver } from 'pokersolver';
 
 class App extends Component {
   compareHands = () => {
-    //IN PROGRESS
-    let hand1 = poskerSolver.solve(
-      this.props.hands[0].map(value => {
-        return value.code;
-      }),
-    );
-    let hand2 = poskerSolver.solve(
-      this.props.hands[1].map(value => {
-        return value.code;
-      }),
-    );
-    let winner = poskerSolver.winners([hand1, hand2]);
-    console.log(
-      winner[0].cardPool.map(card => {
-        return card.value + card.suit;
-      }),
-    );
+    //prepare data for the pokersolver library
+    let hand1 = this.props.hands[0].map(value => {
+      return value.code;
+    });
+    let handSolver1 = poskerSolver.solve(hand1);
+
+    let hand2 = this.props.hands[1].map(value => {
+      return value.code;
+    });
+    let handSolver2 = poskerSolver.solve(hand2);
+
+    //Find out which hand wins
+    let winner = poskerSolver.winners([handSolver1, handSolver2]);
+    //Extracting the cards of the winning hand
+    let winningHand = winner[0].cardPool.map(card => {
+      return card.value + card.suit;
+    });
+
+    let result = winningHand.every(e => hand1.includes(e))
+      ? 'You win'
+      : 'You Loose';
+    alert(result);
   };
 
   render() {
