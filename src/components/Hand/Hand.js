@@ -34,6 +34,7 @@ class Hand extends Component {
   };
 
   updateHand = () => {
+    const { hands, playerId, setHand } = this.props;
     let remainingCards = this.getRemainingCard();
     let newCards = [];
     //draw new cards
@@ -46,9 +47,9 @@ class Hand extends Component {
     }
 
     //get old hand
-    let oldHand = [...this.props.hands[this.props.playerId]];
+    let oldHand = [...hands[playerId]];
     //remove selected cards
-    oldHand = oldHand.filter((value, index) => {
+    oldHand = oldHand.filter(value => {
       return !this.state.selectedCards.includes(value);
     });
 
@@ -56,14 +57,15 @@ class Hand extends Component {
     let newHand = [...oldHand, ...newCards];
     this.setState({ selectedCards: [] });
 
-    this.props.setHand({ playerId: this.props.playerId, hand: newHand });
+    setHand({ playerId: playerId, hand: newHand });
   };
 
   //Get cards you can still draw
   getRemainingCard = () => {
-    return this.props.deck.filter(e => {
+    const { hands, playerId, deck } = this.props;
+    return deck.filter(e => {
       let inHand = false;
-      for (const card of this.props.hands[this.props.playerId]) {
+      for (const card of hands[playerId]) {
         if (card.id === e.id) inHand = true;
       }
       if (!inHand) {
@@ -90,7 +92,8 @@ class Hand extends Component {
   };
 
   cardList = () => {
-    return this.props.hands[this.props.playerId].map((item, key) => {
+    const { hands, playerId } = this.props;
+    return hands[playerId].map((item, key) => {
       return (
         <Card
           cardInfos={item}
@@ -104,8 +107,9 @@ class Hand extends Component {
   };
 
   render() {
+    const { oponent } = this.props;
     return (
-      <div className={this.props.oponent ? 'hand oponent' : 'hand'}>
+      <div className={oponent ? 'hand oponent' : 'hand'}>
         <button
           className="hand__button"
           onClick={() => {
