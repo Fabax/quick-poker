@@ -1,7 +1,18 @@
-import './Card.scss';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import './Card.scss';
 
 export default class Card extends Component {
+  static propTypes = {
+    cardInfos: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      imagePath: PropTypes.string.isRequired,
+      code: PropTypes.string.isRequired,
+    }),
+    turned: PropTypes.bool,
+    selected: PropTypes.bool,
+  };
+
   getImageSource = () => {
     let face =
       process.env.PUBLIC_URL + '/images/' + this.props.cardInfos.imagePath;
@@ -26,7 +37,7 @@ export default class Card extends Component {
           this.props.clickHandler(cardInfos);
         }}
       >
-        <img src={this.getImageSource()} alt={cardInfos.name} />
+        <img src={this.getImageSource()} alt={cardInfos.code} />
       </div>
     );
   }

@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import Card from '../Card/Card';
 import { connect } from 'react-redux';
 import { setHand } from '../../actions';
+import PropTypes from 'prop-types';
 import './Hand.scss';
 
 class Hand extends Component {
-  constructor() {
-    super();
+  state = {
+    selectedCards: [],
+  };
 
-    this.state = {
-      selectedCards: [],
-    };
-  }
+  static propTypes = {
+    playerId: PropTypes.number.isRequired,
+    turned: PropTypes.bool,
+    oponent: PropTypes.bool,
+  };
 
   componentDidMount = () => {
     this.resetHands();
